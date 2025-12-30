@@ -1,0 +1,89 @@
+[gd_scene load_steps=13 format=3 uid="uid://stxhpq4sikri"]
+
+[ext_resource type="Script" uid="uid://bjixx63w74lfi" path="res://Scenes/player.gd" id="1_cvnsp"]
+[ext_resource type="Texture2D" uid="uid://qacqp4nc5lat" path="res://Royalty-Free-Game-Art-Spaceships-from-Unlucky-Studio/Royalty Free Game Art - Spaceships from Unlucky Studio/Spaceship_art_pack/Blue/Small_ship_blue/1.png" id="1_v0iea"]
+[ext_resource type="Texture2D" uid="uid://pb1p5xuuls75" path="res://Royalty-Free-Game-Art-Spaceships-from-Unlucky-Studio/Royalty Free Game Art - Spaceships from Unlucky Studio/Spaceship_art_pack/Blue/Small_ship_blue/2.png" id="3_x3wgy"]
+[ext_resource type="Texture2D" uid="uid://dl7yml3cpnuld" path="res://Royalty-Free-Game-Art-Spaceships-from-Unlucky-Studio/Royalty Free Game Art - Spaceships from Unlucky Studio/Spaceship_art_pack/Blue/Small_ship_blue/3.png" id="4_3smsa"]
+[ext_resource type="Texture2D" uid="uid://lp26uppcatw3" path="res://Royalty-Free-Game-Art-Spaceships-from-Unlucky-Studio/Royalty Free Game Art - Spaceships from Unlucky Studio/Spaceship_art_pack/Blue/Small_ship_blue/4.png" id="5_8erm5"]
+[ext_resource type="Texture2D" uid="uid://b4k4spgsl3c2m" path="res://Royalty-Free-Game-Art-Spaceships-from-Unlucky-Studio/Royalty Free Game Art - Spaceships from Unlucky Studio/Spaceship_art_pack/Blue/Small_ship_blue/5.png" id="6_f1ek2"]
+[ext_resource type="AudioStream" uid="uid://bijl1u5jw02sl" path="res://Audio/laser.mp3" id="7_3smsa"]
+[ext_resource type="AudioStream" uid="uid://drpredvsqxgg0" path="res://Audio/damage.mp3" id="8_8erm5"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_x3wgy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_v0iea")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_x3wgy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_3smsa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_8erm5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_f1ek2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 25.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_8erm5"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_f1ek2"]
+gradient = SubResource("Gradient_8erm5")
+use_hdr = true
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tx1dd"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 3.0
+gravity = Vector3(0, 50, 0)
+scale_max = 5.0
+color = Color(0.117647, 0.701961, 1, 1)
+color_ramp = SubResource("GradientTexture1D_f1ek2")
+
+[node name="Player" type="CharacterBody2D"]
+collision_mask = 10
+script = ExtResource("1_cvnsp")
+
+[node name="SpaceshipImg" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.117969, 0.125391)
+sprite_frames = SubResource("SpriteFrames_x3wgy")
+autoplay = "default"
+frame_progress = 0.136971
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-1, -41, -6, -29, -8, -17, -29, 12, -29, 17, -14, 17, -9, 25, -5, 18, 2, 17, 8, 28, 13, 17, 28, 18, 27, 10, 7, -19, 4, -31)
+
+[node name="MarkedBulletPos" type="Marker2D" parent="."]
+position = Vector2(0, -50)
+gizmo_extents = 116.0
+
+[node name="BulletTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="LaserSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_3smsa")
+volume_db = -8.0
+
+[node name="DamageSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_8erm5")
+volume_db = -9.0
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(-9, 18)
+lifetime = 0.4
+process_material = SubResource("ParticleProcessMaterial_tx1dd")
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
+position = Vector2(8, 18)
+lifetime = 0.4
+process_material = SubResource("ParticleProcessMaterial_tx1dd")
+
+[connection signal="timeout" from="BulletTimer" to="." method="_on_bullet_timer_timeout"]

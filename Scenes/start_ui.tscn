@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://cegndwq3fc7mq"]
+
+[ext_resource type="Script" uid="uid://cqjtvfytlqrgs" path="res://Scenes/start_ui.gd" id="1_8k21b"]
+[ext_resource type="FontFile" uid="uid://c54qwx202824u" path="res://Royalty-Free-Game-Art-Spaceships-from-Unlucky-Studio/Royalty Free Game Art - Spaceships from Unlucky Studio/Spaceship_art_pack/Asimovian-Regular.ttf" id="2_avrgi"]
+[ext_resource type="AudioStream" uid="uid://bj0e5pqp6qruk" path="res://Audio/keyboard typing.mp3" id="3_avrgi"]
+[ext_resource type="AudioStream" uid="uid://dgduwhe4gj72v" path="res://Audio/title_sound.mp3" id="4_wfxj5"]
+
+[node name="StartUI" type="CanvasLayer"]
+script = ExtResource("1_8k21b")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.121569, 0.121569, 0.121569, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -154.5
+offset_top = -29.5
+offset_right = 154.5
+offset_bottom = 29.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_bottom = 20
+
+[node name="Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("2_avrgi")
+theme_override_font_sizes/font_size = 30
+text = "PRESS ENTER TO PLAY"
+
+[node name="TypingAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_avrgi")
+volume_db = 15.0
+
+[node name="GameSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_wfxj5")
+volume_db = 5.981
+autoplay = true

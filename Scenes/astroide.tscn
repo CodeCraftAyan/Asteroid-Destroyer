@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://b503fovrs0p7v"]
+
+[ext_resource type="Script" uid="uid://t6cggar7mr06" path="res://Scenes/astroide.gd" id="1_2poau"]
+[ext_resource type="AudioStream" uid="uid://duue341a8hhy0" path="res://Audio/explosion.mp3" id="2_2poau"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0h4i3"]
+radius = 33.0151
+
+[node name="Astroid" type="Area2D"]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_2poau")
+
+[node name="AestroidImg" type="Sprite2D" parent="."]
+scale = Vector2(0.149414, 0.163086)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-3, -3)
+shape = SubResource("CircleShape2D_0h4i3")
+
+[node name="ExplosionSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_2poau")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,0 +1,66 @@
+[gd_scene load_steps=4 format=3 uid="uid://d0px1t1nwfu2p"]
+
+[ext_resource type="Script" uid="uid://bocaw4nfapdvd" path="res://Scenes/ui.gd" id="1_nf4gj"]
+[ext_resource type="FontFile" uid="uid://c54qwx202824u" path="res://Royalty-Free-Game-Art-Spaceships-from-Unlucky-Studio/Royalty Free Game Art - Spaceships from Unlucky Studio/Spaceship_art_pack/Asimovian-Regular.ttf" id="1_qdvrb"]
+[ext_resource type="AudioStream" uid="uid://bj0e5pqp6qruk" path="res://Audio/keyboard typing.mp3" id="3_nf4gj"]
+
+[node name="UI" type="CanvasLayer" groups=["ui"]]
+script = ExtResource("1_nf4gj")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -49.0
+offset_right = 49.0
+offset_bottom = 65.0
+grow_horizontal = 2
+theme_override_constants/margin_top = 20
+
+[node name="Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_qdvrb")
+theme_override_font_sizes/font_size = 50
+text = "0"
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -32.0
+offset_right = 188.0
+grow_vertical = 0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_bottom = 15
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 7
+
+[node name="MarginContainer3" type="MarginContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="MarginContainer3"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_qdvrb")
+theme_override_font_sizes/font_size = 30
+text = "WELL PLAYED ASTRONAUT"
+
+[node name="ScoreTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="TypingSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_nf4gj")
+volume_db = 16.0
+
+[connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]

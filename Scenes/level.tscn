@@ -1,0 +1,77 @@
+[gd_scene load_steps=9 format=3 uid="uid://cxca4dwctpiki"]
+
+[ext_resource type="Script" uid="uid://bwewy8h1idsvg" path="res://Scenes/level.gd" id="1_81xng"]
+[ext_resource type="Texture2D" uid="uid://c0mbshk34wl5t" path="res://Royalty-Free-Game-Art-Spaceships-from-Unlucky-Studio/Royalty Free Game Art - Spaceships from Unlucky Studio/Spaceship_art_pack/Background/background.jpg" id="1_tumq0"]
+[ext_resource type="PackedScene" uid="uid://stxhpq4sikri" path="res://Scenes/player.tscn" id="2_6phgx"]
+[ext_resource type="PackedScene" uid="uid://d0px1t1nwfu2p" path="res://Scenes/ui.tscn" id="4_81xng"]
+[ext_resource type="AudioStream" uid="uid://dgduwhe4gj72v" path="res://Audio/title_sound.mp3" id="5_wqkje"]
+[ext_resource type="AudioStream" uid="uid://chfyawm4qxilc" path="res://Audio/space music.mp3" id="6_0f350"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6phgx"]
+size = Vector2(1451, 105)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_81xng"]
+size = Vector2(134, 747)
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_81xng")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(631, 365)
+scale = Vector2(3.92725, 2.46289)
+texture = ExtResource("1_tumq0")
+
+[node name="Border" type="Node2D" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Border"]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Border/StaticBody2D"]
+position = Vector2(631, -54)
+shape = SubResource("RectangleShape2D_6phgx")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Border"]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Border/StaticBody2D2"]
+position = Vector2(671, 774)
+shape = SubResource("RectangleShape2D_6phgx")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="Border"]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Border/StaticBody2D3"]
+position = Vector2(-70, 359)
+shape = SubResource("RectangleShape2D_81xng")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="Border"]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Border/StaticBody2D4"]
+position = Vector2(1349, 359)
+shape = SubResource("RectangleShape2D_81xng")
+
+[node name="AstroidTimer" type="Timer" parent="."]
+wait_time = 0.25
+autostart = true
+
+[node name="Astroides" type="Node2D" parent="."]
+
+[node name="Bullets" type="Node2D" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("2_6phgx")]
+position = Vector2(632, 663)
+
+[node name="UI" parent="." instance=ExtResource("4_81xng")]
+
+[node name="BackgroundSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_wqkje")
+volume_db = -10.5
+autoplay = true
+
+[node name="GameSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_0f350")
+autoplay = true
+
+[connection signal="timeout" from="AstroidTimer" to="." method="_on_astroid_timer_timeout"]
+[connection signal="bullet" from="Player" to="." method="_on_player_bullet"]

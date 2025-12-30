@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bf3yc0ks1ax4a"]
+
+[ext_resource type="Script" uid="uid://deh6vnnb7egw8" path="res://Scenes/bullet.gd" id="1_oduel"]
+[ext_resource type="Texture2D" uid="uid://c52t6y66dokix" path="res://Royalty-Free-Game-Art-Spaceships-from-Unlucky-Studio/Royalty Free Game Art - Spaceships from Unlucky Studio/Spaceship_art_pack/Blue/bullet.png" id="1_xjght"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xjght"]
+radius = 3.0
+height = 36.0
+
+[node name="Bullet" type="Area2D"]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_oduel")
+
+[node name="BulletImg" type="Sprite2D" parent="."]
+scale = Vector2(0.152344, 0.542969)
+texture = ExtResource("1_xjght")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_xjght")
